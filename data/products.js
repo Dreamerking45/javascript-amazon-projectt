@@ -656,5 +656,35 @@ const products = [
       "apparel",
       "mens"
     ]
+  },   {
+    id: "bc2847e9-5323-403f-b7cf-57fde044a966",
+    image: "images/products/backpack.jpg",
+    name: "Multipurpose Bag Pack for Laptops & Books",
+    rating: {
+      stars: 4,
+      count: 3570
+    },
+    priceCents: 1500,
+    keywords: [
+      "bag",
+      "carrier",
+      "small bag",
+      "multipurpose"
+    ]
+  }, {
+    id: "bc2847e9-5323-403f-b7cf-57fde044a166",
+    image: "images/products/umbrella.jpg",
+    name: "Durability Umbrella",
+    rating: {
+      stars: 4.5,
+      count: 3000
+    },
+    priceCents: 3500,
+    keywords: [
+      "umbrella",
+      "weather",
+      "rain",
+      "cold"
+    ]
   }
 ];
