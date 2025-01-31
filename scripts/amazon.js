@@ -60,8 +60,7 @@ function updateCartQuantity() {
     cart.forEach((cartItem)=>{
       cartQuantity += cartItem.quantity;
     })
-    document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity
+    return cartQuantity
 };
 
 function showAddedMessage(addedMessageTimeoutId, productId) {
@@ -88,7 +87,9 @@ document.querySelectorAll('.js-add-to-cart')
   button.addEventListener('click', () => {
     const { productId } = button.dataset;
     addToCart(productId);
-    updateCartQuantity();
+    const cartQuantity = updateCartQuantity();
+    document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
     addedMessageTimeoutId = showAddedMessage(addedMessageTimeoutId, productId);
 
     console.log(cart)
