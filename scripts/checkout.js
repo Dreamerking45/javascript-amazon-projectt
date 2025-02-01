@@ -52,9 +52,9 @@ function renderOrderSummary() {
     <div class="cart-item-container
     js-cart-item-container-${matchingProduct.id}">
 
-    <div class="delivery-date">
-      Delivery date: ${dateString}
-    </div>
+      <div class="delivery-date">
+        Delivery date: ${dateString}
+      </div>
 
     <div class="cart-item-details-grid">
       <img class="product-image"
@@ -175,20 +175,16 @@ function renderOrderSummary() {
 
       const saveElement = document.querySelector(`.js-cart-item-container-${productId}`);
 
-      const editedInput = document.querySelector('.js-quantity-input')
+      const editedInput = saveElement.querySelector('.js-quantity-input')
 
       const newQuantity = Number(editedInput.value);
       updateQuantity(productId, newQuantity);
 
       saveElement.classList.remove('is-editing-quantity')
 
+      saveElement.querySelector('.quantity-label').innerText = newQuantity;
+     
       renderCartQuantity();
-
-      cart.forEach((cartItem)=>{
-        if (cartItem.productId === productId) {
-          document.querySelector('.js-quantity-label').innerHTML = cartItem.quantity;
-        }
-      });
     
     });
   });
