@@ -153,6 +153,7 @@ export function renderOrderSummary() {
      
       renderCartQuantity();
       renderPaymentSummary();
+      renderOrderSummary()
     
     });
   });

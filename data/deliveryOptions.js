@@ -1,4 +1,5 @@
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import isSatSun from "../scripts/checkWeekend.js";
 
 export const deliveryOptions = [{
   id: '1',
@@ -27,12 +28,28 @@ export function getDeliveryOption(deliveryOptionId) {
 export  function calculateDeliveryDate(deliveryOption) {
       const today = dayjs();
 
-      const deliveryDate = today.add(
+      let deliveryDate = today.add(
         deliveryOption.deliveryDays, 
         'days'
       );
+      const day = isSatSun(deliveryDate);
+      if (day === 'Saturday' ) {
+        deliveryDate = today.add(
+        (deliveryOption.deliveryDays + 2), 
+          'days')
+      } else if (day === 'Sunday') {
+        deliveryDate = today.add(
+          (deliveryOption.deliveryDays + 1), 
+            'days')
+      } else {
+        deliveryDate = today.add(
+          deliveryOption.deliveryDays, 
+          'days')
+      }
+
       const dateString = deliveryDate.format(
         'dddd, MMMM D'
       );
+      
       return dateString;
     };
