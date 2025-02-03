@@ -1,5 +1,5 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
-import { loadFromStorage, cart, renderCartQuantity, updateCartQuantity } from "../../data/cart.js";
+import { loadFromStorage, cart} from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 
 
@@ -58,7 +58,7 @@ describe('test suite: renderOrderSummary', ()=>{
           document.querySelector(`.js-product-quantity-${productId2}`).innerText
         ).toContain('Quantity: 1');
 
-        //document.querySelector('.js-test-container').innerHTML = ``;
+        document.querySelector('.js-test-container').innerHTML = ``;
        
   });
   it('removes a product', ()=>{
@@ -82,7 +82,7 @@ describe('test suite: renderOrderSummary', ()=>{
         expect(cart.length).toEqual(2);
         expect(cart[0].productId).toEqual(productId1);
 
-        //document.querySelector('.js-test-container').innerHTML = ``;
+        document.querySelector('.js-test-container').innerHTML = ``;
   })
 });
 /*
