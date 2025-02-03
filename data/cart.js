@@ -29,11 +29,11 @@ export function updateCartQuantity() {
     return cartQuantity
 };
 
-export function addToCart(productId, quantity) {
+export function addToCart(productId) {
   let matchingItem;
 
-  /*let selectedElement =  document.querySelector(`.js-quantity-selector-${productId}`).value;
-  let quantity = Number(selectedElement);*/
+  let selectedElement =  document.querySelector(`.js-quantity-selector-${productId}`).value;
+  let quantity = Number(selectedElement);
 
   cart.forEach((cartItem)=>{
     if (productId === cartItem.productId) {
@@ -80,4 +80,14 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   matchingItem.deliveryOptionId = deliveryOptionId;
 
   saveToStorage();
+}
+export function renderCartQuantity() {
+  const cartQuantity = updateCartQuantity()
+  const cartQuantityElement = document.querySelector('.js-checkout-header-middle-section')
+  if (cartQuantityElement) {
+    cartQuantityElement.innerHTML = `${cartQuantity} items`;
+  } else {
+    console.error('element with class .js-checkout header-middle-section is not found')
+  }
+  
 }

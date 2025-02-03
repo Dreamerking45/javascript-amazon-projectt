@@ -1,8 +1,12 @@
-import { cart, removeFromCart, updateCartQuantity, updateQuantity, updateDeliveryOption } from "../../data/cart.js";
+import { cart, removeFromCart, updateCartQuantity, updateQuantity, updateDeliveryOption, renderCartQuantity } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderOrderSummary();
+})
 
 export function renderOrderSummary() {
 
@@ -104,13 +108,6 @@ export function renderOrderSummary() {
 
 
   document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
-
-  function renderCartQuantity() {
-    cartQuantity = updateCartQuantity()
-    document.querySelector('.js-checkout-header-middle-section')
-    .innerHTML = `${cartQuantity} items`
-    
-  }
 
   document.querySelectorAll('.js-delete-link')
   .forEach((link)=>{
