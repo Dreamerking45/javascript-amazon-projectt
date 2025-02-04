@@ -29,11 +29,11 @@ export function updateCartQuantity() {
     return cartQuantity
 };
 
-export function addToCart(productId, quantity) {
+export function addToCart(productId) {
   let matchingItem;
 
-  /*let selectedElement =  document.querySelector(`.js-quantity-selector-${productId}`).value;
-  let quantity = Number(selectedElement);*/
+  let selectedElement =  document.querySelector(`.js-quantity-selector-${productId}`).value;
+  let quantity = Number(selectedElement);
 
   cart.forEach((cartItem)=>{
     if (productId === cartItem.productId) {
