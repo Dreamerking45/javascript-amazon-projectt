@@ -81,7 +81,7 @@ class Cart {
     
       updateDeliveryOption(productId, deliveryOptionId) {
         let matchingItem;
-        this.cartItem.forEach((cartItem)=>{
+        this.cartItems.forEach((cartItem)=>{
           if (productId === cartItem.productId) {
             matchingItem = cartItem;
           }
@@ -102,7 +102,7 @@ class Cart {
         
       }
 }
-const cart = new Cart('cart-oop');
+export const cart = new Cart('cart-oop');
 const businessCart =  new Cart('cart-business');
 
 
