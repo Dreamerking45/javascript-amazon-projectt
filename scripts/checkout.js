@@ -10,17 +10,23 @@ import { loadCart } from "../data/cart.js";
 import "../data/car.js"
 
 async function loadPage() {
-  console.log('load page')
+  try {
+    //throw 'error1';
 
-  await loadProductsFetch();
+    await loadProductsFetch();
 
-  await new Promise((resolve)=>{
-    loadCart(()=>{
-      resolve();
-    });
-  })
+    const value = await new Promise((resolve, reject)=>{
+      loadCart(()=>{
+        resolve();
+        //reject();
+      });
+    })
+  } catch (error) {
+    console.error('Unexpected error. Please try again later')
+  }
   renderOrderSummary();
   renderPaymentSummary();
+  return value
 }
 loadPage()
 /*
