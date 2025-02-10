@@ -2,6 +2,16 @@ import { formatCurrency } from "../scripts/utils/money.js";
 
 export let products = [];
 
+export function getProduct(productId) {
+  console.log("Searching for product:", productId);
+  console.log('Current products:', products);
+  const matchingProduct = products.find((product)=> product.id === productId);
+  if (!matchingProduct) {
+    console.error(`Product not found: ${productId}`)
+  }
+  return matchingProduct
+}
+
 class Product {
   id;
   image;
@@ -115,16 +125,6 @@ export function loadProductsFetch() {
 loadProductsFetch().then((products)=>{
   console.log(products)
 });
-
-export function getProduct(productId) {
-  console.log("Searching for product:", productId);
-  console.log('Current products:', products);
-  const matchingProduct = products.find((product)=> product.id === productId);
-  if (!matchingProduct) {
-    console.error(`Product not found: ${productId}`)
-  }
-  return matchingProduct
-}
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest()

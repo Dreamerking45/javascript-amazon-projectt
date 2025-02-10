@@ -22,12 +22,13 @@ async function loadPage() {
         //reject();
       });
     })
+    
   } catch (error) {
     console.error('Unexpected error. Please try again later')
   }
-  renderOrderSummary();
-  renderPaymentSummary();
-
+    renderOrderSummary();
+    renderPaymentSummary();
+  
 }
 loadPage()
 /*

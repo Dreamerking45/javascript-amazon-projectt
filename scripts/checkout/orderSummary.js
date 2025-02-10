@@ -4,10 +4,6 @@ import { formatCurrency } from "../utils/money.js";
 import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  renderOrderSummary();
-})
-
 export function renderOrderSummary() {
 
   let cartSummaryHTML = '';
@@ -18,7 +14,7 @@ export function renderOrderSummary() {
 
     const matchingProduct = getProduct(productId);
     if (!matchingProduct) {
-      console.error("Current products", products)
+      console.error("Current products one", products)
     }
 
     const deliveryOptionId = cartItem.deliveryOptionId;

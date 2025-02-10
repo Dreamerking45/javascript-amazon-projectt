@@ -30,13 +30,51 @@ function getOrdinalSuffix(day) {
     default: return 'th';
   }
 }
+
+async function orderedProducts(orderId) {
+  let html2 = '';
+  for (const order of orders) {
+    if (orderId === order.id) {
+      for (const product of order.products) {
+        
+       let matchingProduct = getProduct(product.productId)
+       if (!matchingProduct) {
+        console.error("Current products two", products)
+        continue
+      }
+          html2 += `
+            <div class="order-details-grid">
+              <div class="product-image-container">
+                <img src="${matchingProduct.image}">
+              </div>
+              <div class="product-details">
+                <div class="product-name">${matchingProduct.name}</div>
+                <div class="product-delivery-date">Arriving on: ${formatDate(product.estimatedDeliveryTime)}</div>
+                <div class="product-quantity">Quantity: ${product.quantity}</div>
+                <button class="buy-again-button button-primary">
+                  <img class="buy-again-icon" src="images/icons/buy-again.png">
+                  <span class="buy-again-message">Buy it again</span>
+                </button>
+              </div>
+              <div class="product-actions">
+                <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
+                  <button class="track-package-button button-secondary">Track package</button>
+                </a>
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+    return html2;
+  }
 window.onload = async function() {
   await loadProductsFetch(); 
 
   console.log(orders);
 
   let ordersHTML = '';
-  orders.forEach((order) => {
+  for (const order of orders) {
     let html = '';
     html += `   
       <div class="order-container">
@@ -56,50 +94,13 @@ window.onload = async function() {
             <div>${order.id}</div>
           </div>
         </div>
-        ${orderedProducts(order.id)}
+        ${await orderedProducts(order.id)}
       </div>
     `;
     ordersHTML += html;
-  });
+  };
 
-  async function orderedProducts(orderId) {
-    let html2 = '';
-    for (const order of orders) {
-      if (orderId === order.id) {
-        for (const product of order.products) {
-          
-         let matchingProduct = getProduct(product.productId)
+      document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
+};
 
-          if (matchingProduct) {
-            html2 += `
-              <div class="order-details-grid">
-                <div class="product-image-container">
-                  <img src="${matchingProduct.image}">
-                </div>
-                <div class="product-details">
-                  <div class="product-name">${matchingProduct.name}</div>
-                  <div class="product-delivery-date">Arriving on: ${formatDate(product.estimatedDeliveryTime)}</div>
-                  <div class="product-quantity">Quantity: ${product.quantity}</div>
-                  <button class="buy-again-button button-primary">
-                    <img class="buy-again-icon" src="images/icons/buy-again.png">
-                    <span class="buy-again-message">Buy it again</span>
-                  </button>
-                </div>
-                <div class="product-actions">
-                  <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
-                    <button class="track-package-button button-secondary">Track package</button>
-                  </a>
-                </div>
-              </div>
-            `;
-          }
-        }
-      }
-    }
-    return html2;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
-  });
-}
+ 
