@@ -55,7 +55,7 @@ orders.forEach((order)=>{
         </div>
        `
        order.products.forEach((product)=>{
-       matchingProduct = getProduct(product.productId);
+       let matchingProduct = getProduct(product.productId);
            `
            <div class="product-details">
               <div class="product-name">
