@@ -1,14 +1,6 @@
 import { formatCurrency } from "../scripts/utils/money.js";
-export function getProduct(productId) {
-  let matchingProduct;
 
-  products.forEach((product)=>{
-    if (product.id === productId) {
-      matchingProduct = product;
-    } 
-  });
-  return matchingProduct
-}
+export let products = [];
 
 class Product {
   id;
@@ -98,10 +90,9 @@ const object3 = {
 object3.method();
 */
 
-export let products = [];
-
 export function loadProductsFetch() {
-  const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+  const promise = fetch('https://supersimplebackend.dev/products')
+  .then((response)=>{
     return response.json()
   }).then((productsData)=>{
     products = productsData.map((productDetails)=>{
@@ -112,16 +103,29 @@ export function loadProductsFetch() {
       }
       return new Product(productDetails)
     });
-    console.log('load products')
+    console.log('products loaded', products)
+    console.log('Matching product :',getProduct('e43638ce-6aa0-4b85-b27f-e1d07eb678c6'))
+    return products
   }).catch(()=>{
     console.error('Unexpected error, Please try again later')
   });
-  return promise;
+  return promise
 };
-/*
-loadProductsFetch().then(()=>{
-  console.log('next step')
-});*/
+
+loadProductsFetch().then((products)=>{
+  console.log(products)
+});
+
+export function getProduct(productId) {
+  console.log("Searching for product:", productId);
+  console.log('Current products:', products);
+  const matchingProduct = products.find((product)=> product.id === productId);
+  if (!matchingProduct) {
+    console.error(`Product not found: ${productId}`)
+  }
+  return matchingProduct
+}
+
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest()
   xhr.addEventListener('load', ()=>{
@@ -146,7 +150,6 @@ export function loadProducts(fun) {
 }
 
 /*
-
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",

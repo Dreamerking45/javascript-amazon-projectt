@@ -9,13 +9,14 @@ import { loadCart } from "../data/cart.js";
 
 import "../data/car.js"
 
+
 async function loadPage() {
   try {
     //throw 'error1';
 
     await loadProductsFetch();
 
-    const value = await new Promise((resolve, reject)=>{
+    await new Promise((resolve, reject)=>{
       loadCart(()=>{
         resolve();
         //reject();
@@ -26,7 +27,7 @@ async function loadPage() {
   }
   renderOrderSummary();
   renderPaymentSummary();
-  return value
+
 }
 loadPage()
 /*
