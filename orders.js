@@ -1,5 +1,6 @@
 import { getProduct, products, loadProductsFetch } from "./data/products.js";
 import { formatCurrency } from "./scripts/utils/money.js";
+import { updateCartQuantity } from "./data/cart.js";
 
 
 export const orders = JSON.parse(localStorage.getItem('orders')) || [];
@@ -13,7 +14,7 @@ function saveToStorage() {
   localStorage.setItem('orders', JSON.stringify(orders));
 }
 
-function formatDate(timestamp) {
+export function formatDate(timestamp) {
   const date = new Date(timestamp);
   const month = date.toLocaleString('en-US', { month: 'long' });
   const day = date.getUTCDate();
@@ -21,7 +22,7 @@ function formatDate(timestamp) {
   return `${month} ${day}${suffix}`;
 }
 
-function getOrdinalSuffix(day) {
+export function getOrdinalSuffix(day) {
   if (day >= 11 && day <= 13) return 'th';
   switch(day % 10) {
     case 1: return 'st';
@@ -70,9 +71,6 @@ async function orderedProducts(orderId) {
   }
 window.onload = async function() {
   await loadProductsFetch(); 
-
-  console.log(orders);
-
   let ordersHTML = '';
   for (const order of orders) {
     let html = '';
@@ -101,6 +99,9 @@ window.onload = async function() {
   };
 
       document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
+      const cartQuantity = updateCartQuantity();
+      document.querySelector('.js-cart-quantityy')
+      .innerHTML = cartQuantity;
 };
 
  

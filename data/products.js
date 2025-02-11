@@ -3,8 +3,8 @@ import { formatCurrency } from "../scripts/utils/money.js";
 export let products = [];
 
 export function getProduct(productId) {
-  console.log("Searching for product:", productId);
-  console.log('Current products:', products);
+  //console.log("Searching for product:", productId);
+  //console.log('Current products:', products);
   const matchingProduct = products.find((product)=> product.id === productId);
   if (!matchingProduct) {
     console.error(`Product not found: ${productId}`)
@@ -113,8 +113,8 @@ export function loadProductsFetch() {
       }
       return new Product(productDetails)
     });
-    console.log('products loaded', products)
-    console.log('Matching product :',getProduct('e43638ce-6aa0-4b85-b27f-e1d07eb678c6'))
+    //console.log('products loaded', products)
+    //console.log('Matching product :',getProduct('e43638ce-6aa0-4b85-b27f-e1d07eb678c6'))
     return products
   }).catch(()=>{
     console.error('Unexpected error, Please try again later')
@@ -122,9 +122,9 @@ export function loadProductsFetch() {
   return promise
 };
 
-loadProductsFetch().then((products)=>{
+/*loadProductsFetch().then((products)=>{
   console.log(products)
-});
+});*/
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest()
@@ -137,7 +137,7 @@ export function loadProducts(fun) {
       }
       return new Product(productDetails)
     });
-    console.log('load products')
+    //console.log('load products')
 
     fun();
   });
