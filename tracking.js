@@ -88,6 +88,9 @@ async function gettingProducts() {
   `;
 
   document.querySelector('.js-main').innerHTML = trackingHTML;
+  const cartQuantity = updateCartQuantity();
+  document.querySelector('.js-cart-quantityyy')
+  .innerHTML = cartQuantity;
 }
 gettingProducts();
 
