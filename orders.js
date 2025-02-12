@@ -1,6 +1,6 @@
 import { getProduct, products, loadProductsFetch } from "./data/products.js";
 import { formatCurrency } from "./scripts/utils/money.js";
-import { updateCartQuantity } from "./data/cart.js";
+import { updateCartQuantity, addToCart, addToCart2  } from "./data/cart.js";
 
 
 export const orders = JSON.parse(localStorage.getItem('orders')) || [];
@@ -32,17 +32,20 @@ export function getOrdinalSuffix(day) {
   }
 }
 
+
 async function orderedProducts(orderId) {
   let html2 = '';
   for (const order of orders) {
     if (orderId === order.id) {
       for (const product of order.products) {
         
-       let matchingProduct = getProduct(product.productId)
+       let matchingProduct = await getProduct(product.productId)
        if (!matchingProduct) {
-        console.error("Current products two", products)
+        
+        console.error("Current products two", products.productId)
         continue
       }
+    
           html2 += `
             <div class="order-details-grid">
               <div class="product-image-container">
@@ -52,7 +55,7 @@ async function orderedProducts(orderId) {
                 <div class="product-name">${matchingProduct.name}</div>
                 <div class="product-delivery-date">Arriving on: ${formatDate(product.estimatedDeliveryTime)}</div>
                 <div class="product-quantity">Quantity: ${product.quantity}</div>
-                <button class="buy-again-button button-primary">
+                <button class="buy-again-button button-primary js-buy-again-button" data-product-id="${product.productId}">
                   <img class="buy-again-icon" src="images/icons/buy-again.png">
                   <span class="buy-again-message">Buy it again</span>
                 </button>
@@ -69,7 +72,7 @@ async function orderedProducts(orderId) {
     }
     return html2;
   }
-window.onload = async function() {
+ async function renderOrderPage() {
   await loadProductsFetch(); 
   let ordersHTML = '';
   for (const order of orders) {
@@ -97,11 +100,44 @@ window.onload = async function() {
     `;
     ordersHTML += html;
   };
+      const ordersGrid = document.querySelector('.js-orders-grid');
+      if (ordersGrid) {
+        ordersGrid.innerHTML = ordersHTML
+      } else {
+        console.error('Element with class .js-orders-grid not found')
+      }
+     
 
-      document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
-      const cartQuantity = updateCartQuantity();
-      document.querySelector('.js-cart-quantityy')
-      .innerHTML = cartQuantity;
-};
+      let cartQuantity = updateCartQuantity();
+      const cartQuantityElement = document.querySelector('.js-cart-quantityy');
+      if (cartQuantityElement) {
+        cartQuantityElement.innerHTML = cartQuantity;
+      } else {
+        console.error('Element with class .js-cart-quntityy not found')
+      }
 
- 
+      /*document.body.addEventListener('click', (event)=>{
+        if (event.target.closest('js-buy-again-button')) {
+          const button = event.target.closest('js-buy-again-button');
+          const productId = button.dataset.productId;
+          console.log(productId)
+        }
+      })*/
+
+      document.querySelectorAll('.js-buy-again-button').forEach((button)=>{
+        button.addEventListener('click', ()=>{
+          
+
+          const productId = button.dataset.productId;
+          console.log(productId);
+          addToCart2(productId, 1);
+          cartQuantityElement.innerHTML = cartQuantity;
+          renderOrderPage()
+         
+          
+          
+        });
+      })
+  };
+
+renderOrderPage();

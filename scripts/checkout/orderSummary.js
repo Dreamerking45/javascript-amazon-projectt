@@ -14,7 +14,7 @@ export function renderOrderSummary() {
 
     const matchingProduct = getProduct(productId);
     if (!matchingProduct) {
-      console.error("Current products one", products)
+      console.error("Current products one", productId)
     }
 
     const deliveryOptionId = cartItem.deliveryOptionId;

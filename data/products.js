@@ -3,8 +3,8 @@ import { formatCurrency } from "../scripts/utils/money.js";
 export let products = [];
 
 export function getProduct(productId) {
-  //console.log("Searching for product:", productId);
-  //console.log('Current products:', products);
+  console.log("Searching for product:", productId);
+  console.log('Current products:', products);
   const matchingProduct = products.find((product)=> product.id === productId);
   if (!matchingProduct) {
     console.error(`Product not found: ${productId}`)

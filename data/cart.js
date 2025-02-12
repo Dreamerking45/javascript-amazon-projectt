@@ -101,3 +101,26 @@ export function loadCart(fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/cart');
   xhr.send();
 }
+
+export function addToCart2(productId, quantity) {
+  let matchingItem;
+
+  /*let selectedElement =  document.querySelector(`.js-quantity-selector-${productId}`).value;
+  let quantity = Number(selectedElement);*/
+
+  cart.forEach((cartItem)=>{
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+  if (matchingItem) {
+    matchingItem.quantity += quantity;
+  } else {
+    cart.push({
+      productId,
+      quantity,
+      deliveryOptionId: '1'
+    });
+  }
+  saveToStorage();
+};
