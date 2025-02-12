@@ -5,8 +5,8 @@ loadProducts(renderProductsGrid);
 function renderProductsGrid() {
   let productsHTML = '';
 
-  products.forEach((product)=> {
-   /* const url = new URL(window.location.href);
+  //products.forEach((product)=> {
+    const url = new URL(window.location.href);
     const search = url.searchParams.get('search')
 
     let filteredProducts = products;
@@ -16,7 +16,7 @@ function renderProductsGrid() {
         return product.name.includes(search);
       });
     }
-    filteredProducts.forEach((products)=>{})*/
+    filteredProducts.forEach((product)=>{
 
           productsHTML+= ` 
           <div class="product-container">
@@ -69,7 +69,7 @@ function renderProductsGrid() {
               Add to Cart
             </button>
           </div>`;
-  });
+   });
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
   function showAddedMessage(addedMessageTimeoutId, productId) {
@@ -104,12 +104,22 @@ function renderProductsGrid() {
     });
   });
   document.querySelector('.js-search-button').addEventListener('click',()=>{
-    const search = document.querySelector('js-search-bar').value;
+    const search = document.querySelector('.js-search-bar').value;
     window.location.href = `amazon.html?search=${search}`
+   
+  });
+
+  document.querySelector('.js-search-bar').addEventListener('keypress', (event)=>{
+    if (event.key === 'Enter') {
+    const search = document.querySelector('.js-search-bar').value;
+    window.location.href = `amazon.html?search=${search}`
+    }
   })
 }
 window.onload = function() {
   const cartQuantity = updateCartQuantity();
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity;
+
+  renderProductsGrid();
 }
